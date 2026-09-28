@@ -1,0 +1,27 @@
+{
+  "name": "lab-escolar-api",
+  "version": "1.0.0",
+  "description": "API REST del laboratorio Sistema Escolar",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "node --watch --env-file=.env src/server.js",
+    "start": "node --env-file=.env src/server.js",
+    "seed": "node --env-file=.env src/scripts/seed.js",
+    "test": "node --env-file=.env --test --test-concurrency=1 test/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^3.0.3",
+    "cookie-parser": "^1.4.7",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.7.0",
+    "helmet": "^8.3.0",
+    "jsonwebtoken": "^9.0.3",
+    "multer": "^2.4.0",
+    "mysql2": "^3.24.4",
+    "zod": "^4.6.5"
+  },
+  "type": "module"
+}

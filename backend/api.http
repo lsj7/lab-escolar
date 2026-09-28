@@ -1,0 +1,64 @@
+### =========================================================
+### Pruebas manuales de la API con la extensión REST Client
+### (clic en "Send Request" arriba de cada petición).
+### REST Client guarda la cookie de sesión automáticamente.
+### =========================================================
+@api = http://localhost:3000/api
+
+### Salud del servidor
+GET {{api}}/salud
+
+### Login como administrador
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "username": "Admin", "password": "$3cr3t" }
+
+### ¿Quién soy?
+GET {{api}}/auth/me
+
+### Crear un usuario (rol siempre será "usuario", aunque mandes "rol": "admin")
+POST {{api}}/usuarios
+Content-Type: application/json
+
+{ "nombre": "Carlos Pérez", "username": "cperez", "email": "carlos@escuela.edu", "password": "Carlos#2026", "rol": "admin" }
+
+### Listar usuarios (solo admin)
+GET {{api}}/usuarios
+
+### ---------- Catálogos ----------
+GET {{api}}/alumnos
+
+###
+POST {{api}}/maestros
+Content-Type: application/json
+
+{ "nombre": "Rut Hernández", "email": "rut@escuela.edu", "telefono": "826 000 1122", "especialidad": "Redes" }
+
+###
+POST {{api}}/materias
+Content-Type: application/json
+
+{ "clave": "RD-501", "nombre": "Redes de computadoras", "creditos": 5, "maestro_id": 1 }
+
+###
+PUT {{api}}/grupos/1
+Content-Type: application/json
+
+{ "clave": "ISC-3A", "carrera": "Ingeniería en Sistemas Computacionales", "semestre": 3, "turno": "Vespertino" }
+
+###
+DELETE {{api}}/maestros/1
+
+### ---------- Pruebas de seguridad ----------
+### Inyección SQL (debe responder 401)
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{ "username": "' OR '1'='1", "password": "' OR '1'='1" }
+
+### Cerrar sesión
+POST {{api}}/auth/logout
+
+### Sin sesión (debe responder 401)
+GET {{api}}/alumnos
